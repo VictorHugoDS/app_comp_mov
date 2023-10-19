@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'itemreceita.dart';
+import 'package:mine/structs.dart';
+import 'connection.dart';
 import 'square.dart';
 
 /*
@@ -15,35 +16,25 @@ child: Container(
             style: TextStyle(fontSize: 30),
           )),
         )); */
+Resp? r;
+
+
 
 class HomePage extends StatelessWidget {
-  final List _posts = [
-    'Tocha',
-    'Espada de Madeira',
-    'Espada de Madeira',
-    'Espada de Madeira',
-    'Espada de Madeira',
-    'Espada de Madeira',
-  ];
 
-  final List<ItemReceita> l = [
-    ItemReceita(link: 'https://minecraft.wiki/images/Torch.gif?462d6',
-        nome: 'Carvão',
-        quantidade: '2'),
-    ItemReceita(link: 'https://minecraft.wiki/images/Bucket_of_Pufferfish_JE2_BE2.png?5fdfe',
-        nome: 'Graveto',
-        quantidade: '1')
-  ];
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
+  Future<Widget> abuild(BuildContext context) async {
+
+    Resp resp = await fetchData() ;
+    print('njsdnksadnjklsa');
+    r = resp;
+    print(r);
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(70),
+          preferredSize: const Size.fromHeight(70),
           child: AppBar(
             backgroundColor:
                 const Color.fromARGB(255, 82, 74, 74).withOpacity(0.5),
-            title: Text("MinezadaWiki"),
+            title: const Text("MinezadaWiki"),
             centerTitle: true,
           ),
         ),
@@ -56,17 +47,23 @@ class HomePage extends StatelessWidget {
             ),
           ),
           child: ListView.builder(
-            itemCount: _posts.length,
+
+            itemCount: r?.data.length,
             itemBuilder: (context, index) {
               return MySquare(
-                itemName : 'Olá mundo',
-                texto: _posts[index],
-                url:
-                    'https://static.wikia.nocookie.net/minecraft-computer/images/b/b2/Torch.png/revision/latest?cb=20130930145829',
-                valuesList: l,
+                item: r!.data.elementAt(index),
               );
             },
           ),
         ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Widget? w;
+    abuild(context).then((value) => w = value).whenComplete(() => null);
+    print(w);
+    Widget widget = w ?? Container();
+    return  widget;
   }
 }

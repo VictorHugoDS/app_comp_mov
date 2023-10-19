@@ -1,4 +1,4 @@
-const lista_dados = {
+export const lista_dados = {
     'data' :   [
         {
             'nome': 'Tocha',

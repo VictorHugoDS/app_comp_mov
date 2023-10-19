@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:mine/itemlist.dart';
+import 'package:mine/structs.dart';
 
-import 'itemreceita.dart';
 
 class MySquare extends StatelessWidget {
-  final String itemName;
-  final String texto;
-  final String url;
-  final String info = '64 stack';
-  final Iterable<ItemReceita> valuesList;
+  final Item item;
+
+  const MySquare({super.key, required this.item});
 
 
-  const MySquare({super.key,
-    required this.itemName,
-    required this.texto,
-    required this.url,
-    required this.valuesList,
 
-  });
 
   @override
   Widget build(BuildContext context) {
-    ItemList itemList = ItemList(valuesList: valuesList);
+    var receita = item.receita;
+    ItemList itemList = ItemList(valuesList: receita);
     return  Padding(
       padding: const EdgeInsets.only(top: 15.0),
       child: Container(
@@ -43,13 +36,13 @@ class MySquare extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(itemName,
+                        Text(item.nome,
                             style: const TextStyle(fontSize: 30, fontFamily: 'minecraft_font')),
                         Image.network('https://minecraft.wiki/images/Bucket_of_Pufferfish_JE2_BE2.png?5fdfe'
                             ,width: 20, height: 20),
                       ],
                     ),
-                    Text(info,
+                    Text(item.info,
                         style: const TextStyle(fontSize: 15, fontFamily: 'RobotoMono')),
                     ],
                 ),
