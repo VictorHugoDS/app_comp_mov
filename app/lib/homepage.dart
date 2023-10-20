@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:mine/structs.dart';
 import 'connection.dart';
@@ -16,54 +18,58 @@ child: Container(
             style: TextStyle(fontSize: 30),
           )),
         )); */
-Resp? r;
+
+
+class HomePage extends StatefulWidget {
 
 
 
-class HomePage extends StatelessWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
 
-  Future<Widget> abuild(BuildContext context) async {
+class _HomePageState extends State<HomePage> {
 
-    Resp resp = await fetchData() ;
-    print('njsdnksadnjklsa');
-    r = resp;
-    print(r);
+
+  List<Itens>? listItens;
+
+  @override
+  void initState() {
+    listItens = fakeFetchData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // while(body == null){
+    //   continue;
+    // }
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(70),
+          preferredSize: Size.fromHeight(50.0),
           child: AppBar(
             backgroundColor:
-                const Color.fromARGB(255, 82, 74, 74).withOpacity(0.5),
-            title: const Text("MinezadaWiki"),
+            const Color.fromARGB(255, 82, 74, 74).withOpacity(0),
+            title: Image.asset('assets/image/WikiCraft.png'),
             centerTitle: true,
-          ),
+          )
         ),
         body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: NetworkImage(
-                  'https://notadogame.com/uploads/game/cover/250x/5bfdc385cc56d.jpg'),
+                  'https://images6.alphacoders.com/131/1313226.png'),
               fit: BoxFit.cover,
             ),
           ),
           child: ListView.builder(
 
-            itemCount: r?.data.length,
+            itemCount: listItens?.length,
             itemBuilder: (context, index) {
               return MySquare(
-                item: r!.data.elementAt(index),
+                item: listItens?.elementAt(index),
               );
             },
           ),
         ));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    Widget? w;
-    abuild(context).then((value) => w = value).whenComplete(() => null);
-    print(w);
-    Widget widget = w ?? Container();
-    return  widget;
   }
 }

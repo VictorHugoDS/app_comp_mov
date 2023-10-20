@@ -4,7 +4,7 @@ import 'package:mine/structs.dart';
 
 
 class MySquare extends StatelessWidget {
-  final Item item;
+  final Itens? item;
 
   const MySquare({super.key, required this.item});
 
@@ -13,8 +13,9 @@ class MySquare extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var receita = item.receita;
+    var receita = item?.craft;
     ItemList itemList = ItemList(valuesList: receita);
+
     return  Padding(
       padding: const EdgeInsets.only(top: 15.0),
       child: Container(
@@ -23,12 +24,11 @@ class MySquare extends StatelessWidget {
         decoration: BoxDecoration(
         border: Border.all(
         color: Colors.transparent, width: 5.0, style: BorderStyle.solid),
-        color: const Color.fromARGB(255, 105, 105, 105).withOpacity(0.5)),
+        color: const Color.fromARGB(0, 0, 0, 0).withOpacity(0.6)),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Image.network('https://minecraft.wiki/images/Bucket_of_Pufferfish_JE2_BE2.png?5fdfe'
-              ,width: 50, height: 50),
+              Image.network(item!.icon.toString(),width: 75, height: 75),
 
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -36,14 +36,14 @@ class MySquare extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(item.nome,
-                            style: const TextStyle(fontSize: 30, fontFamily: 'minecraft_font')),
-                        Image.network('https://minecraft.wiki/images/Bucket_of_Pufferfish_JE2_BE2.png?5fdfe'
+                        Text(item!.nome.toString(),
+                            style: const TextStyle(color: Colors.white,fontSize: 30, fontFamily: 'minecraft_font')),
+                        Image.network(item!.classificacao.toString()
                             ,width: 20, height: 20),
                       ],
                     ),
-                    Text(item.info,
-                        style: const TextStyle(fontSize: 15, fontFamily: 'RobotoMono')),
+                    Text(item!.info.toString(),
+                        style: const TextStyle(color: Colors.white,fontSize: 15, fontFamily: 'RobotoMono')),
                     ],
                 ),
               const SizedBox.shrink(),
